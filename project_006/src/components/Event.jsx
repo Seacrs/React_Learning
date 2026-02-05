@@ -1,19 +1,9 @@
 import React from "react"
 
 export default function App() {
-    const [count, setCount] = React.useState(0)
-    /**
-     * Challenge: 
-     * Create a function called `add` that runs
-     * when the + button is clicked. (Can just console.log("add") for now)
-     */
-    function add(){
-        setCount(count + 1);
-    }
-    
-    function subtract(){
-        setCount(count - 1)
-    }
+    const [count, setCount] = React.useState(0);
+    const add = ()=> setCount((prevCount => prevCount + 1))
+    const subtract = () => setCount((prevCount => prevCount - 1))
     return (
         <main className="container">
             <h1>How many times will Bob say "state" in this section?</h1>
