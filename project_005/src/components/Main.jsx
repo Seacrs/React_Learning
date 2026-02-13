@@ -3,7 +3,6 @@ import IngredientList from "./IngredientsList"
 import ClaudeRecipe from "./ClaudeRecipe"
 
 export default function Main() {
-
     const [ingredients, setIngredients] = React.useState(
             ["all the main spices", "pasta", "ground beef", "tomato paste"]
         )
