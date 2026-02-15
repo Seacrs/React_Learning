@@ -13,6 +13,17 @@ export default function Main() {
     }
 
     const [recipeShown, setRecipeShown] = React.useState(false)
+    const recipeSection = React.useRef(null)
+
+    React.useEffect(()=>{
+        if(recipeShown && recipeSection.current) {
+            const yCoord = recipeSection.current.getBoundingClientRect().top + window.scrollY
+            window.scroll({
+                top: yCoord,
+                behavior: "smooth"
+            })
+        }
+    }, [recipeShown])
     
     function toggleRecipeShown() {
         setRecipeShown(prevShown => !prevShown)
@@ -30,7 +41,8 @@ export default function Main() {
                 <button>Add ingredient</button>
             </form>
             
-            {ingredients.length > 0 && <IngredientList ingredients={ingredients}
+            {ingredients.length > 0 && <IngredientList ref = {recipeSection}
+                                                        ingredients={ingredients}
                                                         toggle={toggleRecipeShown}/>
             }
             
