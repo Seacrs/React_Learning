@@ -4,14 +4,9 @@ import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
 
 export default function App(){
-    const [dice, setDice] = useState(generateAllNewDice())
+    const [dice, setDice] = useState(()=>generateAllNewDice())
 
-    const gameWon = dice.every(item=> item.isHeld) && dice.every(item => dice[0].value === item.value)
-
-    /**
-     * Challenge:
-     * Make the confetti drop when the game is won! 🎉🎊
-     */
+    const gameWon = dice.every(item=> item.isHeld) && dice.every(item => dice[0].value === item.value)    
 
   function generateAllNewDice(){
         return new Array(10)
@@ -35,7 +30,11 @@ export default function App(){
 )
 
     function rollDice(){
-      setDice(prev=>prev.map(item=> item.isHeld ? item : { ...item, value: Math.ceil(Math.random() * 6)}))
+      if(!gameWon){
+        setDice(prev=>prev.map(item=> item.isHeld ? item : { ...item, value: Math.ceil(Math.random() * 6)}))
+      } else {
+        setDice(generateAllNewDice())
+      }
     }
   
   return (
@@ -46,7 +45,7 @@ export default function App(){
       <div className="container">
         {diceElements}
       </div>
-      <button className='roll-button' onClick={rollDice}>{gameWon ? 'New Game' : 'Roll'}</button>
+      <button  className='roll-button' onClick={rollDice}>{gameWon ? 'New Game' : 'Roll'}</button>
     </main>
   )
 }
