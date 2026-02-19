@@ -30,7 +30,7 @@ export default function AssemblyEndgame(){
 
         const className = clsx('chip', isLanguageLost && 'lost' )
 
-        return (<span className={`chip ${isLanguageLost ? 'lost' : ''}`} style={styles} key={language.name}>{language.name}</span>)
+        return (<span className={className} style={styles} key={language.name}>{language.name}</span>)
     })
 
     const KeyBoardElements = alphabet.split('').map(l => {
@@ -51,15 +51,26 @@ export default function AssemblyEndgame(){
 
     const isGameOver = isGameWon || isGameLost
 
+    const gameStatusClass = clsx("status", {
+        lost: isGameLost,
+        win: isGameWon
+    })
+
     return (
         <main>
             <header>
                 <h1>Assembly EndGame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className='status'>
+            <section className={gameStatusClass}>
+                {isGameWon && <>
                     <h2>You win!</h2>
                     <p>Well Done!🎉</p>
+                    </>}
+                {isGameLost && <>
+                    <h2>Game Over!</h2>
+                    <p>You lose Better start Learning Assembly 💀</p>
+                    </>}
             </section>
             <section className='language_section'>
                     {languageList}
