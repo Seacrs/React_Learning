@@ -6,9 +6,9 @@ export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = useState('react');
     const [letterGuess, setLetterGuess] = useState([]);
 
-    const alphabet = "abcdefghijklmnopqrstuvwxyz"
-
     const wrongGuessCount = letterGuess.filter(letter => !currentWord.includes(letter)).length;
+
+    const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
     function guess(letter){
         setLetterGuess(prev => {
@@ -21,13 +21,16 @@ export default function AssemblyEndgame(){
 
     const letterElements = currentWord.split('').map(letter=> <span>{letterGuess.includes(letter) ? letter.toUpperCase() : '_'}</span>)
 
-    const languageList = languages.map(language=>{
+    const languageList = languages.map((language, index)=>{
         const styles={
             backgroundColor:language.backgroundColor,
             color: language.color
         }
+        const isLanguageLost = index < wrongGuessCount
 
-        return (<span className='chip' style={styles} key={language.name}>{language.name}</span>)
+        const className = clsx('chip', isLanguageLost && 'lost' )
+
+        return (<span className={`chip ${isLanguageLost ? 'lost' : ''}`} style={styles} key={language.name}>{language.name}</span>)
     })
 
     const KeyBoardElements = alphabet.split('').map(l => {
@@ -42,6 +45,11 @@ export default function AssemblyEndgame(){
 
         return (<button key={l} onClick={()=>guess(l)} className={className}>{l.toUpperCase()}</button>)
     })
+
+    const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
+    const isGameLost = wrongGuessCount >= languageList.length - 1 ? true : false;
+
+    const isGameOver = isGameWon || isGameLost
 
     return (
         <main>
@@ -62,7 +70,7 @@ export default function AssemblyEndgame(){
             <section className='alphabet'>
                 {KeyBoardElements}
             </section>
-            <button className="new-game">New Game</button>
+            {isGameOver && <button className="new-game">New Game</button>}
         </main>
     )
 }
