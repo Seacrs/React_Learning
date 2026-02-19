@@ -3,20 +3,23 @@ import { languages } from './languages.js'
 import clsx from 'clsx'
 
 export default function AssemblyEndgame(){
-    const [currentWord, setCurrentWord] = useState('react')
+    const [currentWord, setCurrentWord] = useState('react');
     const [letterGuess, setLetterGuess] = useState([]);
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
+    const wrongGuessCount = letterGuess.filter(letter => !currentWord.includes(letter)).length;
+
     function guess(letter){
         setLetterGuess(prev => {
-            const lettersSet = new Set(prev);
+            const lettersSet = new Set(prev); 
             lettersSet.add(letter);
             return Array.from(lettersSet);
-        })
+        })  
     }
+    console.log(wrongGuessCount)
 
-    const letterElements = currentWord.split('').map(letter=> <span>{letter.toUpperCase()}</span>)
+    const letterElements = currentWord.split('').map(letter=> <span>{letterGuess.includes(letter) ? letter.toUpperCase() : '_'}</span>)
 
     const languageList = languages.map(language=>{
         const styles={
