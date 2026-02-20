@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { languages } from './languages.js'
 import clsx from 'clsx'
+import  {getFarewellText}  from './utils.js'
 
 export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = useState('react');
@@ -33,6 +34,14 @@ export default function AssemblyEndgame(){
         return (<span className={className} style={styles} key={language.name}>{language.name}</span>)
     })
 
+    const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
+    const isGameLost = wrongGuessCount >= languageList.length - 1 ? true : false;
+
+    const isGameOver = isGameWon || isGameLost
+
+    const lastGuessedLetter = letterGuess[letterGuess.length - 1];
+    const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
+
     const KeyBoardElements = alphabet.split('').map(l => {
         const isGuessed = letterGuess.includes(l);
         const isCorrect = isGuessed && currentWord.includes(l);
@@ -43,17 +52,14 @@ export default function AssemblyEndgame(){
             wrong: isWrong
         })
 
-        return (<button key={l} onClick={()=>guess(l)} className={className}>{l.toUpperCase()}</button>)
+        return (<button disabled={isGameOver} key={l} onClick={()=>guess(l)} className={className}>{l.toUpperCase()}</button>)
     })
 
-    const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
-    const isGameLost = wrongGuessCount >= languageList.length - 1 ? true : false;
-
-    const isGameOver = isGameWon || isGameLost
-
+    const farewellText = isLastGuessWrong  ? getFarewellText(languages[wrongGuessCount - 1].name) : '';
     const gameStatusClass = clsx("status", {
         lost: isGameLost,
-        win: isGameWon
+        win: isGameWon,
+        farewell: !isGameWon && !isGameLost && isLastGuessWrong
     })
 
     return (
@@ -63,6 +69,7 @@ export default function AssemblyEndgame(){
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
             <section className={gameStatusClass}>
+                {!isGameWon && !isGameLost && <p className='farewell-message'>{farewellText}</p>}
                 {isGameWon && <>
                     <h2>You win!</h2>
                     <p>Well Done!🎉</p>
