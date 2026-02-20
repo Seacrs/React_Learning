@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { languages } from './languages.js'
 import clsx from 'clsx'
 import { getFarewellText, getRandomWord }  from './utils.js'
+import Confetti from 'react-confetti'
 
 export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = useState(getRandomWord());
@@ -76,6 +77,7 @@ export default function AssemblyEndgame(){
 
     return (
         <main>
+            {isGameWon && <Confetti/>}
             <header>
                 <h1>Assembly EndGame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
