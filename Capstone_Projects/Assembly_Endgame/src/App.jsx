@@ -7,6 +7,7 @@ export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = useState('react');
     const [letterGuess, setLetterGuess] = useState([]);
 
+    const numGuessesLeft = languages.length - 1;
     const wrongGuessCount = letterGuess.filter(letter => !currentWord.includes(letter)).length;
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -35,7 +36,7 @@ export default function AssemblyEndgame(){
     })
 
     const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
-    const isGameLost = wrongGuessCount >= languageList.length - 1 ? true : false;
+    const isGameLost = wrongGuessCount >= numGuessesLeft ? true : false;
 
     const isGameOver = isGameWon || isGameLost
 
@@ -52,7 +53,7 @@ export default function AssemblyEndgame(){
             wrong: isWrong
         })
 
-        return (<button disabled={isGameOver} key={l} onClick={()=>guess(l)} className={className}>{l.toUpperCase()}</button>)
+        return (<button key={l} onClick={()=>guess(l)} className={className} disabled={isGameOver} aria-disabled={letterGuess.includes(l)} aria-label={`Letter ${l}`}>{l.toUpperCase()}</button>)
     })
 
     const farewellText = isLastGuessWrong  ? getFarewellText(languages[wrongGuessCount - 1].name) : '';
@@ -68,7 +69,7 @@ export default function AssemblyEndgame(){
                 <h1>Assembly EndGame</h1>
                 <p>Guess the word within 8 attempts to keep the programming world safe from Assembly!</p>
             </header>
-            <section className={gameStatusClass}>
+            <section aria-live='polite' role='status' className={gameStatusClass}>
                 {!isGameWon && !isGameLost && <p className='farewell-message'>{farewellText}</p>}
                 {isGameWon && <>
                     <h2>You win!</h2>
@@ -81,6 +82,16 @@ export default function AssemblyEndgame(){
             </section>
             <section className='language_section'>
                     {languageList}
+            </section>
+            <section className='sr-only' aria-live='polite' role='status'>
+                <p>
+                    {currentWord.includes(lastGuessedLetter)? 
+                    `Correct! The letter ${lastGuessedLetter} is in the word. ` :
+                    `Sorry, the letter ${lastGuessedLetter} is not in the word.`
+                    }
+                    You have {numGuessesLeft} attempts left.
+                </p>
+                <p>Current word: {currentWord.split("").map(letter=> letterGuess.includes(letter) ? letter + "." : "blank").join("")}</p>
             </section>
             <section className='word'>
                 {letterElements}
