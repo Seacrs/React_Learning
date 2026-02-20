@@ -7,8 +7,16 @@ export default function AssemblyEndgame(){
     const [currentWord, setCurrentWord] = useState(getRandomWord());
     const [letterGuess, setLetterGuess] = useState([]);
 
-    const numGuessesLeft = languages.length - 1;
     const wrongGuessCount = letterGuess.filter(letter => !currentWord.includes(letter)).length;
+    const numGuessesLeft = languages.length - 1
+
+    const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
+    const isGameLost = wrongGuessCount >= numGuessesLeft;
+
+    const isGameOver = isGameWon || isGameLost
+
+    const lastGuessedLetter = letterGuess[letterGuess.length - 1];
+    const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
 
     const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
@@ -21,7 +29,13 @@ export default function AssemblyEndgame(){
     }
     console.log(wrongGuessCount)
 
-    const letterElements = currentWord.split('').map(letter=> <span>{letterGuess.includes(letter) ? letter.toUpperCase() : '_'}</span>)
+    const letterElements = currentWord
+                            .split('')
+                            .map(letter=>{
+                                const letterClassName = clsx(
+                                    isGameLost && !letterGuess.includes(letter) && 'missed-letter'
+                                )
+                                return (<span className={letterClassName}>{letterGuess.includes(letter) || isGameLost ? letter.toUpperCase() : '_'}</span>)})
 
     const languageList = languages.map((language, index)=>{
         const styles={
@@ -35,14 +49,6 @@ export default function AssemblyEndgame(){
         return (<span className={className} style={styles} key={language.name}>{language.name}</span>)
     })
 
-    const isGameWon = currentWord.split("").every(letter => letterGuess.includes(letter))
-    const isGameLost = wrongGuessCount >= numGuessesLeft ? true : false;
-
-    const isGameOver = isGameWon || isGameLost
-
-    const lastGuessedLetter = letterGuess[letterGuess.length - 1];
-    const isLastGuessWrong = lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
-
     const KeyBoardElements = alphabet.split('').map(l => {
         const isGuessed = letterGuess.includes(l);
         const isCorrect = isGuessed && currentWord.includes(l);
@@ -53,15 +59,20 @@ export default function AssemblyEndgame(){
             wrong: isWrong
         })
 
-        return (<button key={l} onClick={()=>guess(l)} className={className} disabled={isGameOver} aria-disabled={letterGuess.includes(l)} aria-label={`Letter ${l}`}>{l.toUpperCase()}</button>)
+        return (<button key={l} onClick={()=>guess(l)} className={className} disabled={isGameOver || isGuessed} aria-disabled={letterGuess.includes(l)} aria-label={`Letter ${l}`}>{l.toUpperCase()}</button>)
     })
 
-    const farewellText = isLastGuessWrong  ? getFarewellText(languages[wrongGuessCount - 1].name) : '';
+    const farewellText = isLastGuessWrong && wrongGuessCount > 0 ? getFarewellText(languages[wrongGuessCount - 1].name) : '';
     const gameStatusClass = clsx("status", {
         lost: isGameLost,
         win: isGameWon,
         farewell: !isGameWon && !isGameLost && isLastGuessWrong
     })
+
+    function endGame(){
+        setCurrentWord(getRandomWord())
+        setLetterGuess([])
+    }
 
     return (
         <main>
@@ -99,7 +110,7 @@ export default function AssemblyEndgame(){
             <section className='alphabet'>
                 {KeyBoardElements}
             </section>
-            {isGameOver && <button className="new-game">New Game</button>}
+            {isGameOver && <button className="new-game" onClick={endGame}>New Game</button>}
         </main>
     )
 }
