@@ -1,68 +1,184 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
+html, body {
   margin: 0;
+  padding: 0;
+}
+nav > a {
+  text-decoration: none;
+  color: green;
+}
+.nav-bar {
+  padding: 42px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: beige;
+}
+.nav-bar  img{
+  width: 150px;
+}
+.nav-bar > h1 {
+  font-size: 1.6rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight:900;
+}
+.nav-bar > nav {
+  text-decoration: none;
+  color: gray;
+  display: flex;
+  gap: 10px;
+}
+.homepage{
+  background-image: url("./assets/mountain.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   min-height: 100vh;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.homepage > h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
 }
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.homepage > div{
+  font-size: 1.2rem;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+}
+.homepage > button {
+  text-align: center;
+  background-color: orangered;
+  color: white;
+  padding: 20px 150px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+}
+.homepage > button:hover {
+  background-color: white;
+  color: orangered;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+.aboutpage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.aboutpage > img {
+  width: 100%;
+  object-fit: cover;
+  display: block;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.aboutpage-text {
+  width: 100%;
+  max-width: 900px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px
+}
+.aboutpage-text > h2 {
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+.aboutpage-text > .info-section{
+  background-color: #FFCC8D;
+  padding: 20px 50px;
+  width: 100%;
+  border-radius: 15px;
+}
+.aboutpage-text > .info-section > button {
+  padding: 20px 30px;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  background-color: #161616;
+  color: white;
+  font-weight: 700;
+}
+.aboutpage-text>.info-section>button:hover{
+  background-color: white;
+  color: #161616;
+  cursor: pointer;
+}
+.vans-collection{
+  padding: 50px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.van-card{
+  width: 250px;
+  overflow: hidden;
+  background-color: white;
+  padding: 20px;
+}
+.van-card > img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.van-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.van-info > h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.van-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+}
+.price {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.per-day {
+  font-size: 0.75rem;
+  color: gray;
+}
+.van-type {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  width: fit-content;
+  cursor: pointer;
+}
+.simple {
+  background-color: #E17654;
+  color: #FFEAD0;
+}
+.rugged {
+  background-color: #115E59;
+  color: #FFEAD0;
+}
+.luxury {
+  background-color: #161616;
+  color: #FFEAD0;
+}
+footer {
+  background-color: #252525;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+footer > p {
+  color: #AAAAAA;
+  font-size: 1.2rem;
 }
