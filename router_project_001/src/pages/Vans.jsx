@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+
 import Van from './Van'
 
 export default function Vans(){
@@ -12,18 +14,22 @@ export default function Vans(){
 
     const vansItems = vans.map(van => {
         return (
-            <Van    key={van.id}
-                    image={van.imageUrl}
-                    name={van.name}
-                    price={van.price}
-                    type={van.type}/>
+            <Link to={`/vans/${van.id}`}>
+                <Van    key={van.id}
+                        image={van.imageUrl}
+                        name={van.name}
+                        price={van.price}
+                        type={van.type}/>
+            </Link>
         )
     })
 
     return (
-        <div className="vans-collection">
+        <div className="vans-page">
             <h1>Explore Our van options</h1>
-            {vansItems}
+            <div className="vans-collection">
+                {vansItems}
+            </div>
         </div>
     )
 }

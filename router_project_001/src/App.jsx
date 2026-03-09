@@ -1,21 +1,24 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route }  from "react-router-dom"
-import NavBar from './pages/NavBar'
+import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
 import Footer from './pages/Footer'
 import Vans from './pages/Vans'
+import VanDetail from './pages/VanDetail'
 
 import "./server"
 
 export default function App(){
     return (
         <BrowserRouter>
-            <NavBar/>
             <Routes>
-                <Route path="/" element={<Home />}/>
-                <Route path="/about" element={<About />}/>
-                <Route path="/vans" element={<Vans />}></Route>
+                <Route element={<Layout />}>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/about" element={<About />}/>
+                    <Route path="/vans" element={<Vans />}/>
+                    <Route path="/vans/:id" element={<VanDetail />}/>
+                </Route>
             </Routes>
             <Footer/>
         </BrowserRouter>
