@@ -1,14 +1,19 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom' 
+import { BrowserRouter, Routes, Route, NavLink, Outlet } from 'react-router-dom' 
 
 function Layout() {
+  const activeStyle = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "red"
+  }
   return (
     <div>
       <h3>Welcome to my page!</h3>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        <NavLink to="/" style={({isActive}) => isActive ? activeStyle : null}>Home</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/contact">Contact</NavLink>
       </nav>
       <Outlet />
     </div>
