@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom"
 
 import Van from './Van'
 
@@ -30,6 +30,7 @@ export default function Vans(){
             <div className="vans-collection">
                 {vansItems}
             </div>
+            <Outlet />
         </div>
     )
 }
