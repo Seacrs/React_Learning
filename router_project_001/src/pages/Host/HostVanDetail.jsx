@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
+import { clsx } from 'clsx'
 
 export default function HostVanDetail(){
     const { id } = useParams()
@@ -11,20 +12,33 @@ export default function HostVanDetail(){
             .then(data => setCurrentVan(data.vans))
     }, [])
 
-    const vanItem = currentVan && currentVan.map(van => {
-        return (
-            <div>
-                <img src={van.imageUrl} alt="" />
-                <p>{van.name}</p>
-                <p>{van.price}</p>
+    if (!currentVan) {
+        return <h1>Loading...</h1>
+    }
 
-            </div>
-        )
-    })
+    const vanButton = clsx('van-type', currentVan.type)
 
     return (
-        <div>
-            {currentVan && vanItem }
-        </div>
+        <section>
+            <Link to=".."
+                className="back-button"
+                >&larr; 
+                <span>Back to all vans</span>
+            </Link>
+            <div className="host-van-detail-layout-container">
+                <div className="host-van-detail">
+                    <img src={currentVan.imageUrl} />
+                    <div className="host-van-detail-info-text">
+                        <i
+                            className={vanButton}
+                        >
+                            {currentVan.type}
+                        </i>
+                        <h3>{currentVan.name}</h3>
+                        <h4>${currentVan.price}/day</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
     )
 }

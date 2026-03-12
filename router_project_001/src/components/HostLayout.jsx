@@ -7,6 +7,8 @@ export default function HostLayout(){
         textDecoration: "underline",
         color: "#161616"
     }
+
+
     return (
         <>
             <nav className="host-nav">
@@ -18,19 +20,19 @@ export default function HostLayout(){
                         Dashboard
                 </NavLink>
                 <NavLink
-                    to="/host/income"
+                    to="income"
                     style={({isActive})=> (isActive ? styles: null)} 
                 >
                         Income
                 </NavLink>
                 <NavLink
-                    to="/host/vans"
+                    to="vans"
                     style={({isActive})=> (isActive ? styles: null)} 
                 >
                         Vans
                 </NavLink>
                 <NavLink 
-                    to="/host/reviews"
+                    to="reviews"
                     style={({isActive})=> (isActive ? styles: null)} 
                 >
                         Reviews
