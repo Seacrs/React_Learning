@@ -5,12 +5,14 @@ html, body {
   margin: 0;
   padding: 0;
 }
+a.active-link {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #161616;
+}
 a{
   color: inherit;
   text-decoration: none;
-}
-a:visited {
-  color: inherit;
 }
 nav > a {
   color: green;
@@ -260,4 +262,41 @@ footer > p {
   color: #161616;
   text-decoration: underline;
   font-weight: 600;
+}
+.host-van-link-wrapper {
+  color: unset;
+  text-decoration: unset;
+}
+
+.host-vans-list {
+  padding-inline: 26px;
+}
+
+.host-vans-title {
+  padding-inline: 26px;
+}
+
+.host-van-single {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 15px;
+  padding-block: 18px;
+  padding-left: 24px;
+}
+
+.host-van-single>img {
+  height: 70px;
+  border-radius: 5px;
+  margin-right: 17px;
+}
+
+.host-van-info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-block: 10px;
+}
+
+.host-van-info p {
+  margin-block: 10px;
 }

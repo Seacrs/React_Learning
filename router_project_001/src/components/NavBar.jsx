@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import logo from "../assets/logog.png"
 
@@ -10,9 +10,24 @@ export default function NavBar(){
                 <img src={logo} alt="" />
             </Link>
             <nav>
-                <Link to="/about">About</Link>
-                <Link to="/vans">Vans</Link>
-                <Link to="/host">Host</Link>
+                <NavLink 
+                        to="/about"
+                        className={({isActive})=> isActive ? "active-link": null}
+                        >
+                            About
+                </NavLink>
+                <NavLink 
+                        to="/vans"
+                        className={({isActive})=> isActive ? "active-link": null}
+                        >
+                            Vans
+                </NavLink>
+                <NavLink 
+                        to="/host"
+                        className={({isActive})=> isActive ? "active-link": null}
+                        >
+                            Host
+                </NavLink>
             </nav>
         </div>
     )
