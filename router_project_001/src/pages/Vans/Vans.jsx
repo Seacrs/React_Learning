@@ -5,10 +5,9 @@ import Van from './Van'
 
 export default function Vans(){
     const [searchParams, setSearchParams] = useSearchParams()
+    const [vans, setVans] = useState([])
 
     const typeFilter = searchParams.get("type")
-    
-    const [vans, setVans] = useState([])
 
     useEffect(()=>{
         fetch("/api/vans")
@@ -16,7 +15,10 @@ export default function Vans(){
             .then(data => setVans(data.vans))
     }, [])
 
-    const vansItems = vans.map(van => {
+    const displayedVans = typeFilter ? vans.filter(van=> van.type.toLowerCase() === typeFilter) : vans
+
+
+    const vansItems = displayedVans.map(van => {
         return (
             <Link to={`/vans/${van.id}`}>
                 <Van    key={van.id}
