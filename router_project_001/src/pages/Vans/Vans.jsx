@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react"
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet, useSearchParams } from "react-router-dom"
 
 import Van from './Van'
 
 export default function Vans(){
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const typeFilter = searchParams.get("type")
+    
     const [vans, setVans] = useState([])
 
     useEffect(()=>{
