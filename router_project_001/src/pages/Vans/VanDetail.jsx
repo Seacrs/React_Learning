@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link, useLocation } from "react-router-dom"
 import { clsx } from 'clsx'
 
 export default function VanDetail(){
     const params = useParams();
     const [van, setVan] = useState([])
+    const location = useLocation()
 
     useEffect(()=>{
         fetch(`/api/vans/${params.id}`)
@@ -14,8 +15,18 @@ export default function VanDetail(){
 
     const vanButton = clsx('van-type', van.type)
 
+    const search = location.state?.search || ""
+    const typeFilter = location.state?.type || "all"
+
     return (
         <div className="van-detail-container">
+            <Link to={`..${search}`}
+                relative="path"
+                className="back-button"
+                >&larr; 
+                <span>Back to {typeFilter} vans</span>
+            </Link>
+
             {van ? (
                 <div className="van-detail">
                     <img src={van.imageUrl} />
