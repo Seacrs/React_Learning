@@ -1,5 +1,13 @@
+import Profile from './components/profile'
+import Login from './components/login'
+import ChangeColor from './components/ChangeColor'
+
 export default function App(){
   return (
-    <h1>Main content</h1>
+    <div>
+      <Profile />
+      <Login />
+      <ChangeColor/>
+    </div>
   )
 }

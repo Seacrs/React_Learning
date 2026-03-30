@@ -1,6 +1,5 @@
-import React from 'react'
 import { Link, NavLink } from "react-router-dom"
-
+import avatar from "../assets/avatar-icon.png"
 import logo from "../assets/logog.png"
 
 export default function NavBar(){
@@ -28,6 +27,9 @@ export default function NavBar(){
                         >
                             Host
                 </NavLink>
+                <Link to="login" className="login-link">
+                    <img src={avatar} alt=""  className="login-icon"/>
+                </Link>
             </nav>
         </div>
     )
