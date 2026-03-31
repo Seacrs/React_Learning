@@ -1,1 +1,94 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header>h1 {
+  text-align: center;
+  color: #CFCFCF;
+  font-weight: 200;
+  font-size: 85px;
+}
+
+.newTask {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  opacity: 5;
+  border: 1px solid #CFCFCF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.newTask>input {
+  flex-grow: 1;
+  width: 500px;
+  max-width: 100%;
+  margin-left: 20px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 40px;
+}
+
+.newTask>button {
+  flex-shrink: 1;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newTask>input::placeholder {
+  color: #7A8A99;
+}
+
+.task-container {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  justify-content: space-between;
+  border-bottom: 1px solid #E0E0E0;
+  padding-bottom: 8px;
+  padding-top: 9px;
+}
+
+.task-container .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-container>button {
+  background: none;
+  border: none;
+  margin-left: auto;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+.tasklist {
+  margin-top: 10px;
+}
