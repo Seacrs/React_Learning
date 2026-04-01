@@ -1,22 +1,19 @@
-import { useState, useEffect } from "react"
-import { useParams, Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useLoaderData } from "react-router-dom"
+import { getVans } from '../../api'
 import { clsx } from 'clsx'
 
+export function loader({ params }){
+    return getVans(params.id)
+}
+
 export default function VanDetail(){
-    const params = useParams();
-    const [van, setVan] = useState([])
-    const location = useLocation()
+    const location = useLocation();
+    const van = useLoaderData();
 
-    useEffect(()=>{
-        fetch(`/api/vans/${params.id}`)
-            .then(res => res.json())
-            .then(data => setVan(data.vans))
-    }, [params.id])
+    const vanButton = clsx('van-type', van.type);
 
-    const vanButton = clsx('van-type', van.type)
-
-    const search = location.state?.search || ""
-    const typeFilter = location.state?.type || "all"
+    const search = location.state?.search || "";
+    const typeFilter = location.state?.type || "all";
 
     return (
         <div className="van-detail-container">
@@ -27,7 +24,6 @@ export default function VanDetail(){
                 <span>Back to {typeFilter} vans</span>
             </Link>
 
-            {van ? (
                 <div className="van-detail">
                     <img src={van.imageUrl} />
                     <button className={vanButton}>{van.type}</button>
@@ -36,7 +32,6 @@ export default function VanDetail(){
                     <p>{van.description}</p>
                     <button className="link-button">Rent This Van</button>
                 </div>
-            ): <h2>Loading...</h2>}
         </div>
     )
 }
