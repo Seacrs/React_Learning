@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, Suspense } from "react"
 import { 
     Link, 
     Outlet, 
@@ -18,14 +18,9 @@ export async function loader(){
 
 export default function Vans(){
     const [searchParams, setSearchParams] = useSearchParams()
-    const [error, setError] = useState(null)
     const vans = useLoaderData()
 
     const typeFilter = searchParams.get("type")
-
-    if(error) {
-        return <h1>There was an error: {error.message}</h1>
-    }
 
     function rendervanElements(vans) {
         const displayedVans = typeFilter ? vans.filter(van=> van.type.toLowerCase() === typeFilter) : vans
@@ -53,7 +48,6 @@ export default function Vans(){
                 <div className="vans-collection">
                     {vansItems}
                 </div>
-                <Outlet/>
             </>
         )
     }
@@ -61,9 +55,11 @@ export default function Vans(){
     return (
         <div className="vans-page">
             <h1>Explore Our van options</h1>
-            <Await resolve={vans.vans}>
-                {rendervanElements}
-            </Await>
+            <Suspense fallback={<h2>Loading vans...</h2>}>
+                <Await resolve={vans.vans}>
+                    {rendervanElements}
+                </Await>
+            </Suspense>
         </div>
     )
 }

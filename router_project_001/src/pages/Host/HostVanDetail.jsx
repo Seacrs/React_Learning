@@ -1,4 +1,4 @@
-import { Link, Outlet, NavLink } from "react-router-dom"
+import { Link, Outlet, NavLink, useLoaderData } from "react-router-dom"
 import { getHostVans } from '../../api'
 import { clsx } from 'clsx'
 import { requireAuth } from "../../utils"
@@ -58,12 +58,12 @@ export default function HostVanDetail(){
                             >
                                 Pricing
                         </NavLink>
-                        <NavLink 
-                            to="photos"
-                            style={({ isActive })=> isActive ? activeStyles : null}
-                            >
-                                Photos
-                        </NavLink>
+                        <NavLink
+                        to="photos"
+                        style={({ isActive }) => isActive ? activeStyles : null}
+                    >
+                        Photos
+                    </NavLink>
                 </nav>
                 <Outlet context={currentVan}/>
             </div>
