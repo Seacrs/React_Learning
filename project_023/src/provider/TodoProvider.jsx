@@ -4,8 +4,8 @@ import { nanoid } from 'nanoid'
 import PropTypes from 'prop-types'
 
 const TodoProvider = ({children}) => {
-    const [input, setInput] = useState('')
-    const [todos, setTodos] = useState([])
+    const [input, setInput] = useState('');
+    const [todos, setTodos] = useState([]);
 
     const handleChange = (e) => {
         const text = e.target.value;

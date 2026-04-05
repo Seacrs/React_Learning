@@ -3,6 +3,9 @@ import avatar from "../assets/avatar-icon.png"
 import logo from "../assets/logog.png"
 
 export default function NavBar(){
+    function fakeLogOut(){
+        localStorage.removeItem("loggedin")
+    }
     return (
         <div className='nav-bar'>
             <Link to="/">
@@ -30,6 +33,7 @@ export default function NavBar(){
                 <Link to="login" className="login-link">
                     <img src={avatar} alt=""  className="login-icon"/>
                 </Link>
+                <button onClick={fakeLogOut}>x</button>
             </nav>
         </div>
     )
